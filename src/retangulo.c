@@ -8,14 +8,9 @@ typedef struct {
     int i;
     float x, y;
     float w, h;
-    float area;
     char* corb;
     char* corp;
 } retangulo;
-
-float calculaAreaRet (float w, float h){
-    return (w * h);
-}
 
 RETANGULO criaRetangulo (int i, float x, float y, float w, float h, char* corb, char* corp){
     retangulo *r = (retangulo*) malloc (sizeof(retangulo));
@@ -29,7 +24,6 @@ RETANGULO criaRetangulo (int i, float x, float y, float w, float h, char* corb, 
     r->y = y;
     r->w = w;
     r->h = h;
-    r->area = calculaAreaRet (w, h);
 
     r->corb = (char*) malloc (sizeof(char) * strlen(corb) + 1);
         if (r->corb == NULL){
@@ -47,4 +41,109 @@ RETANGULO criaRetangulo (int i, float x, float y, float w, float h, char* corb, 
     strcpy (r->corp, corp);
 
      return ((retangulo*)r);
+}
+
+int getId_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->i);
+}
+
+float getX_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->x);
+}
+
+float getY_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->y);
+}
+
+float getW_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->w);
+}
+
+float getH_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->h);
+}
+
+float calcularArea_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->w * r1->h);
+}
+
+char* getCorB (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->corb);
+}
+
+char* getCorP (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    return (r1->corp);
+}
+
+
+
+void setId_R (RETANGULO r, int i){
+    retangulo *r1 = ((retangulo*) r);
+    r1->i = i;
+}
+
+void setX_R (RETANGULO r, float x){
+    retangulo *r1 = ((retangulo*) r);
+    r1->x = x;
+}
+
+void setY_R (RETANGULO r, float y){
+    retangulo *r1 = ((retangulo*) r);
+    r1->y = y;
+}
+
+void setW_C (RETANGULO r, float w){
+    retangulo *r1 = ((retangulo*) r);
+    r1->w = w;
+}
+
+void setH_R (RETANGULO r, float h){
+    retangulo *r1 = ((retangulo*) r);
+    r1->h = h;
+}
+
+void setCorB_R (RETANGULO r, char* cb){
+    retangulo *r1 = ((retangulo*) r);
+
+    free(r1->corb);
+
+    r1->corb = (char*) malloc (sizeof(char) * strlen(cb) + 1);
+
+    if (r1->corb == NULL){
+        printf("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+
+    strcpy (r1->corb, cb);
+}
+
+void setCorP_R (RETANGULO r, char* cp){
+    retangulo *r1 = ((retangulo*) r);
+
+    free(r1->corp);
+
+    r1->corp = (char*) malloc (sizeof(char) * strlen(cp) + 1);
+
+    if (r1->corp == NULL){
+        printf("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+
+    strcpy (r1->corp, cp);
+}
+
+
+void kill_R (RETANGULO r){
+    retangulo *r1 = ((retangulo*) r);
+    free (r1->corb);
+    free (r1->corp);
+    free (r1);
 }

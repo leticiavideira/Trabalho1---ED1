@@ -11,14 +11,9 @@ typedef struct{
     float x;
     float y;
     float r;
-    float area;
     char *corb;
     char *corp;
 } circulo;
-
-float calculaAreaCirc(float r){
-    return pi * r * r;
-}
 
 CIRCULO criaCirculo (int i, float x, float y, float r, char* corb, char* corp){
     circulo *c = (circulo*) malloc (sizeof(circulo));
@@ -32,7 +27,6 @@ CIRCULO criaCirculo (int i, float x, float y, float r, char* corb, char* corp){
     c->x = x;
     c->y = y;
     c->r = r;
-    c->area = calculaArea(r);
 
     c->corb = (char*) malloc (sizeof(char) * strlen(corb) + 1);
         if (c->corb == NULL){
@@ -50,4 +44,107 @@ CIRCULO criaCirculo (int i, float x, float y, float r, char* corb, char* corp){
     strcpy (c->corp, corp);
 
     return ((circulo*)c);
+}
+
+int getId_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->i);
+
+}
+
+float getX_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->x);
+
+}
+
+float getY_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->y);
+
+}
+
+float getR_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->r);
+
+}
+
+float calcularArea_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->r * c1->r * pi);
+
+}
+
+char* getCorB_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->corb);
+
+}
+
+char* getCorP_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    return (c1->corp);
+
+}
+
+
+
+
+void setId_C (CIRCULO c, int i){
+    circulo *c1 = ((circulo*) c);
+    c1->i = i;
+}
+
+void setX_C (CIRCULO c, float x){
+    circulo *c1 = ((circulo*) c);
+    c1->x = x;
+}
+
+void setY_C (CIRCULO c, float y){
+    circulo *c1 = ((circulo*) c);
+    c1->y = y;
+}
+
+void setR_C (CIRCULO c, float r){
+    circulo *c1 = ((circulo*) c);
+    c1->r = r;
+}
+
+void setCorB_C (CIRCULO c, char* cb){
+    circulo *c1 = ((circulo*) c);
+
+    free (c1->corb);
+
+    c1->corb = (char*) malloc (sizeof(char) * (strlen(cb) + 1));
+
+    if (c1->corb == NULL){
+        printf ("Erro ao alocar memoria.\n");
+        exit(1);
+    }
+    
+    strcpy (c1->corb, cb);
+
+}
+
+void setCorP_C (CIRCULO c, char* cp){
+    circulo *c1 = ((circulo*) c);
+
+    free (c1->corp);
+
+    c1->corp = (char*) malloc (sizeof(char) * (strlen(cp) + 1));
+
+    if (c1->corp == NULL) {
+        printf ("Erro ao alocar memoria. \n");
+        exit(1);
+    }
+
+    strcpy (c1->corp, cp);
+}
+
+void kill_C (CIRCULO c){
+    circulo *c1 = ((circulo*) c);
+    free (c1->corb);
+    free (c1->corp);
+    free (c1);
 }
