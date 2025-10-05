@@ -26,7 +26,15 @@ char* getfWeight_T (TEXTO t);
 char* getfSize_T (TEXTO t);
 
 
+
+float comprimento_T (TEXTO t);
+
+float calcX1_T (TEXTO t);
+
+float calcX2_T (TEXTO t);
+
 float calcularArea_T (TEXTO t);
+
 
 
 void setId_T (TEXTO t, int i);

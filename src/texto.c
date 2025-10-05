@@ -136,6 +136,56 @@ char* getfSize_T (TEXTO t){
 }
 
 
+float comprimento_T (TEXTO t){
+    texto *t1 = ((texto*) t);
+    return (10 * strlen(t1->txto));
+}
+
+float calcX1_T (TEXTO t){
+    texto *t1 = ((texto*) t);
+    
+    float x1;
+
+        if (t1->a == 'i'){
+            x1 = t1->x;
+
+        } else if (t1->a == 'f'){
+            x1 = (t1->x - comprimento_T(t1));
+
+        } else if (t1->a == 'm'){
+            x1 = (t1->x - (comprimento_T(t1) / 2));
+
+        } else {
+            printf ("Ancora nao reconhecida.\n");
+        }
+    
+    return x1;
+}
+
+float calcX2_T (TEXTO t){
+    texto *t1 = ((texto*) t);
+
+    float x2;
+
+        if (t1->a == 'i'){
+            x2 = (t1->x + comprimento_T(t1));
+
+        } else if (t1->a == 'f'){
+            x2 = t1->x;
+
+        } else if (t1->a == 'm'){
+            x2 = (t1->x + (comprimento_T(t1) / 2));
+
+        } else {
+            printf ("Ancora nao reconhecida.\n");
+        }
+
+    return x2;
+
+}
+
+
+
 float calcularArea_T (TEXTO t){
      texto *t1 = ((texto*) t);
     return (20 * strlen(t1->txto));
