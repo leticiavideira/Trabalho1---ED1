@@ -6,25 +6,17 @@
 #include "texto.h"
 
 typedef struct {
-    char* fFamily;
-    char* fWeight;
-    char* fSize;
-
-} tipoTxt;
-
-typedef struct {
     int i;
     float x, y;
     char* corb;
     char* corp;
     char a;
     char* txto;
-    tipoTxt tTxt;
     
 } texto;
 
 
-TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* txto, char* fFamily, char* fWeight, char* fSize){
+TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* txto){
     texto *t = (texto*) malloc (sizeof(texto));
 
     if (t == NULL){
@@ -58,31 +50,6 @@ TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* 
                 exit (1);
         }
     strcpy (t->txto, txto);
-
-
-        //TIPO TXT
-
-    t->tTxt.fFamily = (char*) malloc (sizeof(char) * strlen(fFamily) + 1);
-        if(t->tTxt.fFamily == NULL){
-            printf("Erro ao alocar memoria.\n");
-                exit (1);
-        }
-    strcpy (t->tTxt.fFamily, fFamily);
-
-    t->tTxt.fWeight = (char*) malloc (sizeof(char) * strlen(fWeight) + 1);
-        if(t->tTxt.fWeight == NULL){
-            printf("Erro ao alocar memoria.\n");
-                exit (1);
-        }
-    strcpy (t->tTxt.fWeight, fWeight);
-
-    t->tTxt.fSize = (char*) malloc (sizeof(char) * strlen(fSize) + 1);
-        if(t->tTxt.fSize == NULL){
-            printf("Erro ao alocar memoria.\n");
-                exit (1);
-        }
-    strcpy (t->tTxt.fSize, fSize);
-
 }
 
 int getId_T (TEXTO t){
@@ -119,22 +86,6 @@ char* getTxto_T (TEXTO t){
      texto *t1 = ((texto*) t);
     return (t1->txto);
 }
-
-char* getfFamily_T (TEXTO t){
-     texto *t1 = ((texto*) t);
-    return (t1->tTxt.fFamily);
-}
-
-char* getfWeight_T (TEXTO t){
-     texto *t1 = ((texto*) t);
-    return (t1->tTxt.fWeight);
-}
-
-char* getfSize_T (TEXTO t){
-     texto *t1 = ((texto*) t);
-    return (t1->tTxt.fSize);
-}
-
 
 float comprimento_T (TEXTO t){
     texto *t1 = ((texto*) t);
@@ -258,60 +209,11 @@ void setTxto_T (TEXTO t, char* txto){
     strcpy (t1->txto, txto);
 }
 
-void setfFamily_T (TEXTO t, char* fFamily){
-    texto *t1 = ((texto*) t);
-
-    free(t1->tTxt.fFamily);
-
-    t1->tTxt.fFamily = (char*) malloc (sizeof(char) * strlen(fFamily) + 1);
-
-        if(t1->tTxt.fFamily == NULL){
-            printf ("Erro ao alocar memoria./n");
-                exit(1);
-        }
-
-    strcpy (t1->tTxt.fFamily, fFamily);
-}
-
-void setfWeight_T (TEXTO t, char* fWeight){
-    texto *t1 = ((texto*) t);
-
-    free(t1->tTxt.fWeight);
-
-    t1->tTxt.fWeight = (char*) malloc (sizeof(char) * strlen(fWeight) + 1);
-
-        if(t1->tTxt.fWeight == NULL){
-            printf ("Erro ao alocar memoria./n");
-                exit(1);
-        }
-
-    strcpy (t1->tTxt.fWeight, fWeight);
-}
-
-void setfSize_T (TEXTO t, char* fSize){
-    texto *t1 = ((texto*) t);
-
-    free(t1->tTxt.fSize);
-
-    t1->tTxt.fSize = (char*) malloc (sizeof(char) * strlen(fSize) + 1);
-
-        if(t1->tTxt.fSize == NULL){
-            printf ("Erro ao alocar memoria./n");
-                exit(1);
-        }
-
-    strcpy (t1->tTxt.fSize, fSize);
-}
-
-
 void kill_T (TEXTO t){
     texto *t1 = ((texto*) t);
 
     free(t1->corb);
     free(t1->corp);
     free(t1->txto);
-    free(t1->tTxt.fFamily);
-    free(t1->tTxt.fWeight);
-    free(t1->tTxt.fSize);
     free(t1);
 }
