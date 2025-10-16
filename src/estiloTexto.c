@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "estilotexto.h"
+#include "estiloTexto.h"
+
 
  typedef struct {
     char* fFamily;
