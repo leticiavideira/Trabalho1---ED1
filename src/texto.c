@@ -190,8 +190,7 @@ void setCorp_T (TEXTO t, char* cp){
 
 void setA_T (TEXTO t, char a){
     texto *t1 = ((texto*) t); 
-
-    //TERMINAR
+    t1->a = a;
 }
 
 void setTxto_T (TEXTO t, char* txto){
