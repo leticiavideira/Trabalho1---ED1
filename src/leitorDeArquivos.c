@@ -20,44 +20,6 @@ struct filaEPilhaLinhas{
 };
 
 
-
-
-static char *leLinha (FILE *arquivo, char *buffer, size_t tam){
-    if ((fgets(buffer, tam, arquivo) != NULL)){
-        size_t t = strlen(buffer);
-
-        if (t > 0 && buffer[t - 1] == '\n')
-            buffer[t - 1] = '\0';
-        
-        return (buffer);
-    }
-    return NULL;
-}
-
-char *duplicaString (char *st){
-    if (st == NULL)
-        return NULL;
-
-    size_t t = strlen(st) + 1;
-
-    char *duplica = malloc (t);
-        if (duplica != NULL)
-            strcpy (duplica, st);
-
-    return (duplica);
-}
-
-
-
-
-
-//static char *leLinha (FILE *arquivo, char *buffer, size_t tam);
-
-//static struct filaEPilhaLinhas * leArqFilaPilha (char *arqPath);
-
-//char *duplicaString (char *st);
-
-
 DadosArquivo criarDadosArq (char * arqPath){
     struct DadosArquivo *arquivo = malloc (sizeof(struct DadosArquivo));
         if (arquivo == NULL){
@@ -125,6 +87,37 @@ static struct filaEPilhaLinhas *leArqFilaPilha (char *arqPath){
 
     return filaPilha;
 }
+
+
+
+
+
+static char *leLinha (FILE *arquivo, char *buffer, size_t tam){
+    if ((fgets(buffer, tam, arquivo) != NULL)){
+        size_t t = strlen(buffer);
+
+        if (t > 0 && buffer[t - 1] == '\n')
+            buffer[t - 1] = '\0';
+        
+        return (buffer);
+    }
+    return NULL;
+}
+
+char *duplicaString (char *st){
+    if (st == NULL)
+        return NULL;
+
+    size_t t = strlen(st) + 1;
+
+    char *duplica = malloc (t);
+        if (duplica != NULL)
+            strcpy (duplica, st);
+
+    return (duplica);
+}
+
+
 
 
 
