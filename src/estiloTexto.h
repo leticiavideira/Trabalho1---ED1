@@ -1,5 +1,5 @@
-#ifndef ESTILOTEXTO_H
-#define ESTILOTEXTO_H
+#ifndef ESTILO_TEXTO_H
+#define ESTILO_TEXTO_H
 
 typedef void* ESTILO_TEXTO;
 
