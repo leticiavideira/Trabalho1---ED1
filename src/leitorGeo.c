@@ -271,12 +271,12 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
 
     FILE *arq = fopen (saidaPathArq, "w");
         if (arq == NULL){
-            printf ("Erro ao abrir o arquivo %s. \n", saidaPathArq);
+            printf ("Erro ao abrir o arquivo SVG de saida.\n");
             free (saidaPathArq);
                 return;
         }
 
-        fprintf (arq,  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        //fprintf (arq,  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         
         fprintf (arq, "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\">\n");
 
@@ -286,30 +286,20 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
                     if (forma->tipoF == CIRCLE){
                         CIRCULO c = (CIRCULO) forma->data;
 
-                        fprintf (
-                            arq,
-                            "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s'/>\n",
-                            getX_C (c), getY_C (c), getR_C (c), getCorP_C (c), getCorB_C (c)
-                        );
+                        fprintf (arq, "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s'/>\n",
+                            getX_C (c), getY_C (c), getR_C (c), getCorP_C (c), getCorB_C (c));
 
                     } else if (forma->tipoF == RECTANGLE){
                         RETANGULO r = (RETANGULO) forma->data;
 
-                        fprintf (
-                            arq,
-                            "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' "
-                            "stroke='%s'/>\n",
-                            getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r)
-                        );
+                        fprintf (arq, "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' stroke='%s'/>\n",
+                            getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r));
 
                     } else if (forma->tipoF == LINE){
                         LINHA l = (LINHA) forma->data;
 
-                        fprintf (
-                            arq,
-                            "<line x1='%.2f' y1='%.2f' x2='%.2f' y2='%.2f' stroke='%s'/>\n",
-                            getX1_L (l), getY1_L (l), getX2_L (l), getY2_L (l), getCor_L (l)
-                        );
+                        fprintf (arq, "<line x1='%.2f' y1='%.2f' x2='%.2f' y2='%.2f' stroke='%s'/>\n",
+                            getX1_L (l), getY1_L (l), getX2_L (l), getY2_L (l), getCor_L (l));
 
                     } else if (forma->tipoF == TEXT){
                         TEXTO t = (TEXTO) forma->data;
@@ -321,16 +311,10 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
                                 txtA = "middle";
                             } else if (ancora == 'f' || ancora == 'F') {
                                 txtA = "end";
-                            } else if (ancora == 'i' || ancora == 'I') {
-                                txtA = "start";
                             }
 
-                        fprintf (
-                            arq,
-                            "<text x='%.2f' y='%.2f' fill='%s' stroke='%s' "
-                            "text-anchor='%s'>%s</text>\n",
-                            getX_T (t), getY_T (t), getCorp_T (t), getCorb_T (t), txtA, getTxto_T (t)
-                        );
+                        fprintf (arq, "<text x='%.2f' y='%.2f' fill='%s' stroke='%s' text-anchor='%s'>%s</text>\n",
+                            getX_T (t), getY_T (t), getCorp_T (t), getCorb_T (t), txtA, getTxto_T (t));
                     }
                 }
         }
