@@ -73,12 +73,12 @@ float calcularArea_R (RETANGULO r){
     return (r1->w * r1->h);
 }
 
-char* getCorB (RETANGULO r){
+char* getCorB_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->corb);
 }
 
-char* getCorP (RETANGULO r){
+char* getCorP_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->corp);
 }

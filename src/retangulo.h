@@ -18,9 +18,9 @@ float getH_R (RETANGULO r);
 
 float calcularArea_R (RETANGULO r);
 
-char* getCorB (RETANGULO r);
+char* getCorB_R (RETANGULO r);
 
-char* getCorP (RETANGULO r);
+char* getCorP_R (RETANGULO r);
 
 
 void setId_R (RETANGULO r, int i);
