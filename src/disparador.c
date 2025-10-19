@@ -180,7 +180,7 @@ void killDisparador (DISPARADOR d){
 int getId_disparador (DISPARADOR d){
     disparadorSt *d1 = (disparadorSt *) d;
         if (d1 == NULL)
-            return;
+            return -1;
     
     return (d1 != NULL) ? d1->id : -1;
 }
@@ -188,7 +188,7 @@ int getId_disparador (DISPARADOR d){
 double getX_disparador (DISPARADOR d){
      disparadorSt *d1 = (disparadorSt *) d;
         if (d1 == NULL)
-            return;
+            return 0.0;
     
     return (d1 != NULL) ? d1->x : 0.0;
 }
@@ -196,7 +196,7 @@ double getX_disparador (DISPARADOR d){
 double getY_disparador (DISPARADOR d){
      disparadorSt *d1 = (disparadorSt *) d;
         if (d1 == NULL)
-            return;
+            return 0.0;
     
     return (d1 != NULL) ? d1->y : 0.0;
 }

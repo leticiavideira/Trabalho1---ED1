@@ -34,6 +34,8 @@ LINHA criaLinha (int i, float x1, float y1, float x2, float y2, char* cor){
         }
     
     strcpy (l->cor, cor);
+
+    return (linha*) l;
 }
 
 int getId_L (LINHA l){

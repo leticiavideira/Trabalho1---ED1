@@ -20,6 +20,8 @@ struct filaEPilhaLinhas{
 };
 
 
+static struct filaEPilhaLinhas *leArqFilaPilha(char *arqPath);
+
 DadosArquivo criarDadosArq (char * arqPath){
     struct DadosArquivo *arquivo = malloc (sizeof(struct DadosArquivo));
         if (arquivo == NULL){

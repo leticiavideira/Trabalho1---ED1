@@ -29,7 +29,7 @@ void setX_R (RETANGULO r, float x);
 
 void setY_R (RETANGULO r, float y);
 
-void setW_C (RETANGULO r, float w);
+void setW_R (RETANGULO r, float w);
 
 void setH_R (RETANGULO r, float h);
 

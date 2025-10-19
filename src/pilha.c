@@ -48,7 +48,7 @@ int pushPilha (PILHA p, void *conteudo){
     return 1;
 }
 
-PILHA popPilha (PILHA p){
+void *popPilha (PILHA p){
     if (p == NULL) 
         return 0;
 
@@ -64,7 +64,7 @@ PILHA popPilha (PILHA p){
     return (conteudo);
 }
 
-PILHA topoPilha (PILHA p){
+void *topoPilha (PILHA p){
     if (p == NULL)  
         return 0;
     

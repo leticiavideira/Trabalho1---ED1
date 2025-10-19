@@ -7,9 +7,9 @@ FILA criaFila ();
 
 int pushFila (FILA f, void *conteudo);
 
-FILA popFila (FILA f);
+void *popFila (FILA f);
 
-FILA primeiroElemFila (FILA f);
+void *primeiroElemFila (FILA f);
 
 int tamanhoFila (FILA f);
 

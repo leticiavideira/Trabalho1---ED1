@@ -100,7 +100,7 @@ void setY_R (RETANGULO r, float y){
     r1->y = y;
 }
 
-void setW_C (RETANGULO r, float w){
+void setW_R (RETANGULO r, float w){
     retangulo *r1 = ((retangulo*) r);
     r1->w = w;
 }

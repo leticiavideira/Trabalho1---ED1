@@ -50,6 +50,8 @@ TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* 
                 exit (1);
         }
     strcpy (t->txto, txto);
+
+    return (texto *) t;
 }
 
 int getId_T (TEXTO t){

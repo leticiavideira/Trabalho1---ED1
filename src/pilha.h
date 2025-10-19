@@ -7,9 +7,9 @@ PILHA criaPilha ();
 
 int pushPilha (PILHA p, void *conteudo);
 
-PILHA popPilha (PILHA p);
+void *popPilha (PILHA p);
 
-PILHA topoPilha (PILHA p);
+void *topoPilha (PILHA p);
 
 int tamanhoPilha (PILHA p);
 

@@ -56,7 +56,7 @@ int pushFila (FILA f, void *conteudo){
     return 1;
 }
 
-FILA popFila (FILA f){
+void *popFila (FILA f){
     if (f == NULL)
         return 0;
     
@@ -76,7 +76,7 @@ FILA popFila (FILA f){
     return (conteudo);
 }
 
-FILA primeiroElemFila (FILA f){
+void *primeiroElemFila (FILA f){
     if (f == NULL)
         return 0;
     

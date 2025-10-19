@@ -7,10 +7,10 @@
 char *getValorOpt (int arg, char *argVet[], char *nomeOpt){
     char fOpt [64];
 
-    snprintf (fOpt, sizeof (char) * 64, "-%s", nomeOpt);
+    snprintf (fOpt, sizeof (fOpt), "-%s", nomeOpt);
 
     for (int i = 1 ; i < arg -1 ; ++i){
-        if (strcmp (argVet[i], 64) == 0){
+        if (strcmp (argVet[i], fOpt) == 0){
             if (argVet [i + 1] == NULL){
                 return NULL;
             } else {

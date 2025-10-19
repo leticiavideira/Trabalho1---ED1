@@ -21,7 +21,7 @@ ESTILO_TEXTO criaEstiloTexto (char* fFamily, char* fWeight, int fSize){
     if (ts == NULL)
         return NULL;
 
-    ts->fFamily = (char *) malloc (sizeof(fFamily) + 1);
+    ts->fFamily = (char *) malloc (strlen(fFamily) + 1);
 
     if (ts->fFamily == NULL)
         return NULL;
@@ -29,7 +29,7 @@ ESTILO_TEXTO criaEstiloTexto (char* fFamily, char* fWeight, int fSize){
     strcpy(ts->fFamily, fFamily);
 
 
-    ts->fWeight = (char *) malloc (sizeof(fWeight) + 1);
+    ts->fWeight = (char *) malloc (strlen(fWeight) + 1);
 
     if (ts->fWeight == NULL)
         return NULL;
@@ -60,7 +60,7 @@ char* getfWeight_T (ESTILO_TEXTO ts){
 
 int getfSize_T (ESTILO_TEXTO ts){
     if (ts == NULL)
-        return NULL;
+        return -1;
 
     EstiloTexto *ts1 = ((EstiloTexto *)ts);
     return (ts1->fSize);
