@@ -21,11 +21,6 @@ typedef struct{
     FILA filaSVG;
 } ChaoSt;
 
-typedef struct{
-    formaTipo tipoF;
-    void* data;
-} FormaSt;
-
 void exeCmd_Retangulo (ChaoSt *chao);
 void exeCmd_Circulo (ChaoSt *chao);
 void exeCmd_Linha (ChaoSt *chao);
