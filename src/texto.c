@@ -7,7 +7,7 @@
 
 typedef struct {
     int i;
-    float x, y;
+    double x, y;
     char* corb;
     char* corp;
     char a;
@@ -16,7 +16,7 @@ typedef struct {
 } texto;
 
 
-TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* txto){
+TEXTO criaTexto (int i, double x, double y, char* corb, char* corp, char a, char* txto){
     texto *t = (texto*) malloc (sizeof(texto));
 
     if (t == NULL){
@@ -59,12 +59,12 @@ int getId_T (TEXTO t){
     return (t1->i);
 }
 
-float getX_T (TEXTO t){
+double getX_T (TEXTO t){
      texto *t1 = ((texto*) t);
     return (t1->x);
 }
 
-float getY_T (TEXTO t){
+double getY_T (TEXTO t){
      texto *t1 = ((texto*) t);
     return (t1->y);
 }
@@ -89,15 +89,15 @@ char* getTxto_T (TEXTO t){
     return (t1->txto);
 }
 
-float comprimento_T (TEXTO t){
+double comprimento_T (TEXTO t){
     texto *t1 = ((texto*) t);
     return (10 * strlen(t1->txto));
 }
 
-float calcX1_T (TEXTO t){
+double calcX1_T (TEXTO t){
     texto *t1 = ((texto*) t);
     
-    float x1;
+    double x1;
 
         if (t1->a == 'i'){
             x1 = t1->x;
@@ -115,10 +115,10 @@ float calcX1_T (TEXTO t){
     return x1;
 }
 
-float calcX2_T (TEXTO t){
+double calcX2_T (TEXTO t){
     texto *t1 = ((texto*) t);
 
-    float x2;
+    double x2;
 
         if (t1->a == 'i'){
             x2 = (t1->x + comprimento_T(t1));
@@ -139,7 +139,7 @@ float calcX2_T (TEXTO t){
 
 
 
-float calcularArea_T (TEXTO t){
+double calcularArea_T (TEXTO t){
      texto *t1 = ((texto*) t);
     return (20 * strlen(t1->txto));
 }
@@ -150,12 +150,12 @@ void setId_T (TEXTO t, int i){
     t1->i = i;
 }
 
-void setX_T (TEXTO t, float x){
+void setX_T (TEXTO t, double x){
     texto *t1 = ((texto*) t);
     t1->x = x;
 }
 
-void setY_T (TEXTO t, float y){
+void setY_T (TEXTO t, double y){
     texto *t1 = ((texto*) t);
     t1->y = y;
 }

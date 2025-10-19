@@ -6,13 +6,13 @@
 
 typedef struct {
     int i;
-    float x, y;
-    float w, h;
+    double x, y;
+    double w, h;
     char* corb;
     char* corp;
 } retangulo;
 
-RETANGULO criaRetangulo (int i, float x, float y, float w, float h, char* corb, char* corp){
+RETANGULO criaRetangulo (int i, double x, double y, double w, double h, char* corb, char* corp){
     retangulo *r = (retangulo*) malloc (sizeof(retangulo));
         if (r == NULL){
             printf ("Erro ao alocar memoria para criacao do retangulo.\n");
@@ -48,27 +48,27 @@ int getId_R (RETANGULO r){
     return (r1->i);
 }
 
-float getX_R (RETANGULO r){
+double getX_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->x);
 }
 
-float getY_R (RETANGULO r){
+double getY_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->y);
 }
 
-float getW_R (RETANGULO r){
+double getW_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->w);
 }
 
-float getH_R (RETANGULO r){
+double getH_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->h);
 }
 
-float calcularArea_R (RETANGULO r){
+double calcularArea_R (RETANGULO r){
     retangulo *r1 = ((retangulo*) r);
     return (r1->w * r1->h);
 }
@@ -90,22 +90,22 @@ void setId_R (RETANGULO r, int i){
     r1->i = i;
 }
 
-void setX_R (RETANGULO r, float x){
+void setX_R (RETANGULO r, double x){
     retangulo *r1 = ((retangulo*) r);
     r1->x = x;
 }
 
-void setY_R (RETANGULO r, float y){
+void setY_R (RETANGULO r, double y){
     retangulo *r1 = ((retangulo*) r);
     r1->y = y;
 }
 
-void setW_R (RETANGULO r, float w){
+void setW_R (RETANGULO r, double w){
     retangulo *r1 = ((retangulo*) r);
     r1->w = w;
 }
 
-void setH_R (RETANGULO r, float h){
+void setH_R (RETANGULO r, double h){
     retangulo *r1 = ((retangulo*) r);
     r1->h = h;
 }

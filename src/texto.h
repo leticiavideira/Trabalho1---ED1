@@ -3,13 +3,13 @@
 
 typedef void* TEXTO;
 
-TEXTO criaTexto (int i, float x, float y, char* corb, char* corp, char a, char* txto);
+TEXTO criaTexto (int i, double x, double y, char* corb, char* corp, char a, char* txto);
 
 int getId_T (TEXTO t);
 
-float getX_T (TEXTO t);
+double getX_T (TEXTO t);
 
-float getY_T (TEXTO t);
+double getY_T (TEXTO t);
 
 char* getCorb_T (TEXTO t);
 
@@ -20,13 +20,13 @@ char getA_T (TEXTO t);
 char* getTxto_T (TEXTO t);
 
 
-float comprimento_T (TEXTO t);
+double comprimento_T (TEXTO t);
 
-float calcX1_T (TEXTO t);
+double calcX1_T (TEXTO t);
 
-float calcX2_T (TEXTO t);
+double calcX2_T (TEXTO t);
 
-float calcularArea_T (TEXTO t);
+double calcularArea_T (TEXTO t);
 
 
 
