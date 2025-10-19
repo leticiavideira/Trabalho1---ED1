@@ -2,7 +2,7 @@
 TARGET = ted
 
 # Nome do aluno
-ALUNO = LeticiaVG
+ALUNO = leticiavg
 
 # Compilador
 CC = gcc
