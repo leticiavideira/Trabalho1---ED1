@@ -271,7 +271,7 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
                 return;
         }
 
-        //fprintf (arq,  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        fprintf (arq,  "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         
         fprintf (arq, "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1000 1000\">\n");
 
