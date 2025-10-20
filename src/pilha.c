@@ -74,6 +74,29 @@ void *topoPilha (PILHA p){
 
 }
 
+void *acharElemIdPilha (PILHA p, int id){
+    if (p == NULL || pilhaVazia(p) || id < 0){
+        return NULL;
+    }
+
+    Pilha *p1 = (Pilha *) p; 
+    
+    if (id >= p1->tamanho){
+        return NULL;
+    }
+
+    elementoPilha *atual = p1->topo;
+
+    for (int i = 0 ; i < id ; i++){
+        if (atual == NULL){
+            return NULL;
+        }
+        atual = atual->prox;
+    }
+
+    return (atual->conteudo);
+}
+
 int tamanhoPilha (PILHA p){
     if (p == NULL)  
         return 0;
