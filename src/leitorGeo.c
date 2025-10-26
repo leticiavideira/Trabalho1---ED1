@@ -80,6 +80,12 @@ FILA getFChao (CHAO chao){
     return (chao1->filaFormas);
 }
 
+PILHA getPFormasChaoFree (CHAO chao){
+    ChaoSt *chao1 = (ChaoSt *) chao;
+    
+    return chao1->pilhaFreeMemoria;
+}
+
 void killGeo (CHAO chao){
     ChaoSt *chao1 = ((ChaoSt *) chao);
 
