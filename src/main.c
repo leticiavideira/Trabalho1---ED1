@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "leitorGeo.h"
+#include "leitorQry.h"
 #include "argumentos.h"
 #include "leitorDeArquivos.h"
 
@@ -13,6 +14,7 @@ int main (int arg, char *argVet[]){
 
     char *saidaPath = getValorOpt (arg, argVet, "o");
     char *entradaGeoPath = getValorOpt (arg, argVet, "f");
+    char *entradaQryPath = getValorOpt (arg, argVet, "q");
     char *sufixoCmd = getSufixoCmd (arg, argVet);
 
         if (entradaGeoPath == NULL || saidaPath == NULL){
@@ -27,13 +29,25 @@ int main (int arg, char *argVet[]){
             exit (1);
         }
 
-    CHAO ch = processarGeo (arqGeo, saidaPath, sufixoCmd);
+    CHAO chao = processarGeo (arqGeo, saidaPath, sufixoCmd);
+
+    if (entradaQryPath != NULL){
+        DadosArquivo arqQry = criarDadosArq (entradaQryPath);
+        if (arqQry == NULL){
+            printf ("Erro ao criar DadosArquivo para .qry\n");
+            killGeo (chao);
+            exit (1);
+
+        }
+
+        QRY qry = exeQryCmd (arqQry, arqGeo, chao, saidaPath);
+        destruirDadosArq (arqQry);
+        killQry (qry);
+    }
 
     destruirDadosArq (arqGeo);
     
-    killGeo (ch);
-
-    printf ("Processamento concluido com sucesso.\n");
+    killGeo (chao);
 
     return 0;
 }

@@ -386,7 +386,7 @@ void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId
                 pushPilha (*(disp->cargaEsquerda->formas), disp->emDisparo);
             }
 
-            disp->emDisparo == popPilha (*(disp->cargaDireita->formas));
+            disp->emDisparo = popPilha (*(disp->cargaDireita->formas));
         }
     }
 }
