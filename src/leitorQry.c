@@ -29,7 +29,6 @@ typedef struct{
     PILHA *formas;
 }carregadorSt;
 
-//disparador.h struct (inclui id de cada carregador = nao coloquei);
 typedef struct {
     int id;
     double x, y;
@@ -37,6 +36,15 @@ typedef struct {
     PILHA cargaDireita;
     FormaSt *emDisparo;
 } disparadorSt;
+
+typedef struct{
+    FormaSt *forma;
+    double x, y;
+    int iA; //bool
+    double disparadorX;
+    double disparadorY;
+} PosicaoFormaASt;
+
 
 typedef enum {
     ARRAYDISPARADORF, ARRAYCARREGADORF, POSICAOFORMAF, PILHAF
@@ -52,15 +60,6 @@ typedef struct{
     PILHA pilhaFree;
 } QrySt;
 
-typedef struct{
-    FormaSt *forma;
-    double x, y;
-    int iA; //bool
-    double disparadorX;
-    double disparadorY;
-} PosicaoFormaASt;
-
-//funcoes do disparador no disparador.h -> acho q falta algumas
 
 void killQry (QRY qry){
     QrySt *qry1 = (QrySt *)qry;

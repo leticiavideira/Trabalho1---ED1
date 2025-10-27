@@ -35,6 +35,13 @@ typedef struct {
     int cargaDirId;
 } disparadorSt;
 
+typedef struct{
+    FormaSt *forma;
+    double x, y;
+    int iA; //bool
+    double disparadorX;
+    double disparadorY;
+} PosicaoFormaASt;
 
 
 typedef enum {
@@ -45,17 +52,6 @@ typedef struct{
     void *p;
     TIPOF tp;
 } ItemFree;
-
-typedef struct{
-    FormaSt *forma;
-    double x, y;
-    int iA; //bool
-    double disparadorX;
-    double disparadorY;
-} PosicaoFormaASt;
-
-
-//FUNCOES SUBSTITUTAS
 
 void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
     char *iden = strtok (NULL, " ");
@@ -74,7 +70,7 @@ void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
     int contTamPilha = tamanhoPilha (pilhaFree);
 
     for (int i = 0 ; i < contTamPilha ; i++){
-        ItemFree *itemExiste = (ItemFree *) acharElemIdPilha (pilhaFree, i);
+        ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
 
         if (itemExiste != NULL && itemExiste->tp == ARRAYDISPARADORF){
             itemExiste->p = *disparador;
@@ -135,7 +131,7 @@ void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILH
             int carregadorMarcado = 0;
             int contTamPilha = tamanhoPilha (pilhaFree);
             for (int i = 0 ; i < contTamPilha ; i++){
-                ItemFree *itemExiste = (ItemFree *) acharElemIdPilha (pilhaFree, i);
+                ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
                     if (itemExiste != NULL  && itemExiste->tp == ARRAYCARREGADORF){
                         itemExiste->p = *carregador;
                         carregadorMarcado = 1;
@@ -224,7 +220,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
                 int carregadorMarcado = 0;
                 int contTamPilha = tamanhoPilha (pilhaFree);
                 for (int i = 0 ; i < contTamPilha ; i++){
-                    ItemFree *itemExiste = (ItemFree *) acharElemIdPilha (pilhaFree, i);
+                    ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
                     if (itemExiste != NULL && itemExiste->tp == ARRAYCARREGADORF){
                         itemExiste->p = *carregador;
                         carregadorMarcado = 1;
@@ -280,7 +276,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
                 int contTamPilha = tamanhoPilha (pilhaFree);
 
                     for (int i = 0 ; i < contTamPilha ; i++){
-                        ItemFree *itemExiste = (ItemFree *) acharElemIdPilha (pilhaFree, i);
+                        ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
                         if (itemExiste != NULL && itemExiste->tp == ARRAYCARREGADORF){
                             itemExiste->p = *carregador;
                             carregadorMarcado = 1;
