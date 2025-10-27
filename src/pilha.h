@@ -11,7 +11,7 @@ void *popPilha (PILHA p);
 
 void *topoPilha (PILHA p);
 
-void *acharElemIdPilha (PILHA p, int id);
+void *acharElemPilha (PILHA p, int index);
 
 int tamanhoPilha (PILHA p);
 
