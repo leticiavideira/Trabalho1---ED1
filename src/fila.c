@@ -43,6 +43,9 @@ int pushFila (FILA f, void *conteudo){
         return 0;
     }
 
+    novo->conteudo = conteudo;
+    novo->prox = NULL;
+
     if (f1->fim == NULL){
         f1->inicio = novo;
 
@@ -105,7 +108,7 @@ int filaVazia (FILA f){
 
 void limpaFila (FILA f){
     if (f == NULL)
-        return 0;
+        return;
     
     Fila *f1 = ((Fila *) f);
 
@@ -116,7 +119,7 @@ void limpaFila (FILA f){
 
 void killFila (FILA f){
     if (f == NULL)
-        return 0;
+        return;
     
     Fila *f1 = ((Fila *) f);
 
