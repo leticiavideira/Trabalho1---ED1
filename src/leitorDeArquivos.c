@@ -8,8 +8,8 @@
 
 
 struct DadosArquivo {
-    const char *arqPath;
-    const char *arqNome;
+    char *arqPath;
+    char *arqNome;
     FILA filaLinhas;
     PILHA linhasLiberar;
 };
@@ -21,6 +21,10 @@ struct filaEPilhaLinhas{
 
 
 static struct filaEPilhaLinhas *leArqFilaPilha(char *arqPath);
+
+char *duplicaString (char *st);
+static char *leLinha (FILE *arquivo, char *buffer, size_t tam);
+
 
 DadosArquivo criarDadosArq (char * arqPath){
     struct DadosArquivo *arquivo = malloc (sizeof(struct DadosArquivo));
@@ -35,7 +39,7 @@ DadosArquivo criarDadosArq (char * arqPath){
     struct filaEPilhaLinhas *filaPilha = leArqFilaPilha (arqPath);
 
         if (filaPilha == NULL || filaPilha->linhasLiberar == NULL || filaPilha->filaLinhas == NULL){
-            printf ("Erro ao ler as linhas do arquivo.\n");
+            printf ("Erro ao ler as linhas do arquivo.88\n");
 
             if (filaPilha != NULL)
                 free(filaPilha);
