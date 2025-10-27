@@ -1,3 +1,8 @@
-enum formaTipo {CIRCLE, RECTANGLE, LINE, TEXT, TEXT_STYLE};
+#ifndef FORMAS_H
+#define FORMAS_H
 
-typedef enum formaTipo formaTipo;
+enum formatipo {CIRCLE, RECTANGLE, LINE, TEXT, TEXT_STYLE};
+
+typedef enum formatipo formaTipo;
+
+#endif
