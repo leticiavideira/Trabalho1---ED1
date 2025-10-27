@@ -25,7 +25,7 @@ int analisarCorHex (char *s, int *r, int *g, int *b){
 
     int v[6];
     for (int i = 0; i < 6; i++) {
-        int hv = hex_value(s[1 + i]);
+        int hv = valorHex(s[1 + i]);
         if (hv < 0)
             return -1;
 
