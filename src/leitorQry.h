@@ -1,6 +1,8 @@
 #ifndef LEITOR_QRY_H
 #define LEITOR_QRY_H
 
+#include "leitorDeArquivos.h"
+#include "leitorGeo.h"
 
 typedef void *QRY;
 
