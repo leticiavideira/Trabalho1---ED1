@@ -32,9 +32,9 @@ double calcularArea_T (TEXTO t);
 
 void setId_T (TEXTO t, int i);
 
-void setX_T (TEXTO t, float x);
+void setX_T (TEXTO t, double x);
 
-void setY_T (TEXTO t, float y);
+void setY_T (TEXTO t, double y);
 
 void setCorb_T (TEXTO t, char* cb);
 
