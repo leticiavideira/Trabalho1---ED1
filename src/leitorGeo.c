@@ -298,7 +298,7 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
                         RETANGULO r = (RETANGULO) forma->data;
 
                         fprintf (arq, "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' stroke='%s'/>\n",
-                            getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r));
+                            getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorP_R (r), getCorB_R (r));
 
                     } else if (forma->tipoF == LINE){
                         LINHA l = (LINHA) forma->data;
