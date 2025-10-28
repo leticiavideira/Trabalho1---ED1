@@ -11,39 +11,10 @@
 #include "linha.h"
 #include "texto.h"
 #include "estiloTexto.h"
+#include "fila.h"
+#include "leitorGeo.h"
+#include "leitorQry.h"
 
-typedef struct{
-    formaTipo tipoF;
-    void* data;
-} FormaSt;
-
-typedef struct{
-    int id;
-    PILHA *formas;
-}carregadorSt;
-
-typedef struct {
-    int id;
-    double x, y;
-    carregadorSt *cargaEsquerda;
-    carregadorSt *cargaDireita;
-    FormaSt *emDisparo;
-    int cargaEsqId;
-    int cargaDirId;
-} disparadorSt;
-
-typedef struct{
-    FormaSt *forma;
-    double x, y;
-    int iA; //bool
-    double disparadorX;
-    double disparadorY;
-} PosicaoFormaASt;
-
-typedef struct {
-    double minX, minY;
-    double maxX, maxY;
-} bBox;
 
 
 int getDisparadorIndexPorId (disparadorSt **disparador, int contDisparos, int id){

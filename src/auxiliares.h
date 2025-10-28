@@ -5,8 +5,7 @@
 #include "pilha.h"
 #include "leitorGeo.h"
 #include "leitorQry.h"
-#include "formas.h"
-
+#include "struct.c"
 
 int getDisparadorIndexPorId (disparadorSt **disparador, int contDisparos, int id);
 
