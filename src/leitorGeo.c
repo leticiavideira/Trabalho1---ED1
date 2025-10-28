@@ -14,10 +14,7 @@
 #include "texto.h"
 #include "estiloTexto.h"
 
-typedef struct{
-    formaTipo tipoF;
-    void* data;
-} FormaSt;
+#include "struct.c"
 
 typedef struct{
     FILA filaFormas;

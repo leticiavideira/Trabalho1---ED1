@@ -20,46 +20,11 @@
 
 
 typedef struct{
-    formaTipo tipoF;
-    void* data;
-} FormaSt;
-
-typedef struct{
-    int id;
-    PILHA *formas;
-}carregadorSt;
-
-typedef struct {
-    int id;
-    double x, y;
-    PILHA cargaEsquerda;
-    PILHA cargaDireita;
-    FormaSt *emDisparo;
-} disparadorSt;
-
-typedef struct{
-    FormaSt *forma;
-    double x, y;
-    int iA; //bool
-    double disparadorX;
-    double disparadorY;
-} PosicaoFormaASt;
-
-
-typedef enum {
-    ARRAYDISPARADORF, ARRAYCARREGADORF, POSICAOFORMAF, PILHAF
-} TIPOF;
-
-typedef struct{
-    void *p;
-    TIPOF tp;
-} ItemFree;
-
-typedef struct{
     PILHA arena;
     PILHA pilhaFree;
 } QrySt;
 
+void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, PILHA arena, char *saidaPath);
 
 void killQry (QRY qry){
     QrySt *qry1 = (QrySt *)qry;
@@ -85,8 +50,6 @@ void killQry (QRY qry){
     killPilha (qry1->pilhaFree);
     free (qry1);
 }
-
-//Funçoes para calculo de area, sobreposicoes e clonagens
 
 
 QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char *saidaPath){
@@ -159,7 +122,7 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
         } else if (strcmp (cmd, "lc") == 0){
             lcExecutar (&carregador, &contCarregador, chao, qry->pilhaFree, txtFile);
         } else if (strcmp (cmd, "atch") == 0){
-            atchExecutar (&carregador, &contCarregador, &disparador, &contDisparos, txtFile);
+            atchExecutar (&carregador, &contCarregador, &disparador, &contDisparos, qry->pilhaFree);
         } else if (strcmp (cmd, "shft") == 0){
             shftExecutar (&disparador, &contDisparos, carregador, &contCarregador, txtFile);
         } else if (strcmp (cmd, "dsp") == 0){
