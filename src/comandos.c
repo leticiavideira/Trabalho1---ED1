@@ -15,43 +15,6 @@
 #include "texto.h"
 #include "estiloTexto.h"
 
-typedef struct{
-    formaTipo tipoF;
-    void* data;
-} FormaSt;
-
-typedef struct{
-    int id;
-    PILHA *formas;
-}carregadorSt;
-
-typedef struct {
-    int id;
-    double x, y;
-    carregadorSt *cargaEsquerda;
-    carregadorSt *cargaDireita;
-    FormaSt *emDisparo;
-    int cargaEsqId;
-    int cargaDirId;
-} disparadorSt;
-
-typedef struct{
-    FormaSt *forma;
-    double x, y;
-    int iA; //bool
-    double disparadorX;
-    double disparadorY;
-} PosicaoFormaASt;
-
-
-typedef enum {
-    ARRAYDISPARADORF, ARRAYCARREGADORF, POSICAOFORMAF, PILHAF
-} TIPOF;
-
-typedef struct{
-    void *p;
-    TIPOF tp;
-} ItemFree;
 
 void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
     char *iden = strtok (NULL, " ");
@@ -204,7 +167,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
                 if ((*carregador)[j].id == carregadorEsqIdInt){
                     carregadorEsquerdoPtr = &(*carregador)[j];
                 }
-                if ((*carregador)[j].id == carregadorDireitoPtr){
+                if ((*carregador)[j].id == carregadorDirIdInt){
                     carregadorDireitoPtr = &(*carregador)[j];
                 }
             }
@@ -324,7 +287,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
             (*disparador)[disparadorIndex].cargaEsqId = carregadorEsqIdInt;
             (*disparador)[disparadorIndex].cargaDirId = carregadorDirIdInt;
         } else {
-            printf ("Erro: disparador com id &d nao encontrado.\n", disparadorIdInt);
+            printf ("Erro: disparador com id %d nao encontrado.\n", disparadorIdInt);
         }
 }
 
@@ -391,13 +354,13 @@ void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *c
     char *disparadorId = strtok (NULL, " ");
     char *botaoDirEsq = strtok (NULL, " ");
     char *vezesP = strtok (NULL, " ");
-    fprintf (txtFile, "[shft]");
+    fprintf (txtFile, "[shft]\n");
 
     int disparadorIdInt = atoi (disparadorId);
     int vezesPInt = atoi (vezesP);
 
     fprintf (txtFile, "\tDisparador ID: %d", disparadorIdInt);
-    fprintf (txtFile, "\tBotao: %s", botaoDirEsq);
+    fprintf (txtFile, "\tBotão: %s", botaoDirEsq);
     fprintf (txtFile, "\tQuantidade de vezes pressionado: %d", vezesPInt);
     fprintf (txtFile, "\n");
 
@@ -421,7 +384,6 @@ void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId,
     double formaYArena = disp->y + dy;
 
     FormaSt *forma = (FormaSt *)disp->emDisparo;
-    formaTipo formaTp = forma->tipoF;
 
     PosicaoFormaASt *posicaoFormaArena = malloc (sizeof (PosicaoFormaASt));
         if (posicaoFormaArena == NULL){
@@ -649,7 +611,7 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
 
     //Saida com o resultado calculado
     fprintf (txtFile, "[calc]\n");
-    fprintf (txtFile, "\tResultado: %.2lf\n", areaTotalEsmagada);
+    fprintf (txtFile, "\tResultado final: %.2lf\n", areaTotalEsmagada);
     fprintf (txtFile, "\n");
 
     killPilha (temp);

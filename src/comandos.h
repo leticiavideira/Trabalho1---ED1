@@ -4,6 +4,7 @@
 #include "fila.h"
 #include "pilha.h"
 #include "leitorGeo.h"
+#include "auxiliares.h"
 
 void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree);
 
