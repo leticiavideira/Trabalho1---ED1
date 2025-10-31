@@ -141,6 +141,44 @@ void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILH
     for (int i = 0 ; i < contFormasN ; i++){
         FormaSt *forma = popFila (getFChao (chao));
         if (forma != NULL){
+
+            switch (forma->tipoF){
+                case RECTANGLE: {
+                    RETANGULO r = (RETANGULO) forma->data;
+
+                    fprintf (txtFile, "\tForma carregada: r %d %.6f %.6f %.6f %.6f %s %s\n",
+                        getId_R (r), getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r) 
+                    );
+                    break;
+                }
+                case CIRCLE: {
+                    CIRCULO c = (CIRCULO) forma->data;
+
+                    fprintf (txtFile, "\tForma carregada: c %d %.6f %.6f %.6f %s %s\n",
+                        getId_C (c), getX_C (c), getY_C (c), getR_C (c), getCorB_C (c), getCorP_C (c)
+                    );
+                    break;
+                }
+                case LINE: {
+                    LINHA l = (LINHA) forma->data;
+
+                    fprintf (txtFile, "\tForma carregada: l %d %.6f %.6f %.6f %.6f %s\n",
+                        getId_L (l), getX1_L (l), getY1_L (l), getX2_L (l), getY2_L (l), getCor_L (l)
+                    );
+                    break;
+                }
+                case TEXT: {
+                    TEXTO t = (TEXTO) forma->data;
+
+                    fprintf (txtFile, "\tForma carregada: t %d %.6f %.6f %s %s %c %s\n",
+                        getId_T (t), getX_T (t), getY_T (t), getCorb_T (t), getCorp_T (t), getA_T (t), getTxto_T (t)
+                    );
+                    break;
+                }
+                case TEXT_STYLE:
+                    return;
+            }
+
             if (!pushPilha (*(*carregador)[carregadorJaExiste].formas, forma)){
                 printf ("Erro ao colocar forma na pilha do carregador");
                 exit (1);
@@ -291,7 +329,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
         }
 }
 
-void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, char *direcao, int vezes, carregadorSt *carregador, int contCarregador){
+void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, char *direcao, int vezes, carregadorSt *carregador, int contCarregador, FILE *txtFile){
     int disparadorIndex = getDisparadorIndexPorId (disparador, contDisparos, disparadorId);
         if (disparadorIndex == -1){
             printf ("Erro disparador com ID %d nao encontrado", disparadorId);
@@ -348,6 +386,48 @@ void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId
             disp->emDisparo = popPilha (*(disp->cargaDireita->formas));
         }
     }
+
+    if (txtFile != NULL){
+        switch (disp->emDisparo->tipoF) {
+            case RECTANGLE: {
+                RETANGULO r = (RETANGULO) disp->emDisparo->data;
+
+                fprintf (txtFile, "\tForma em disparo: r %d %.6f %.6f %.6f %.6f %s %s\n",
+                    getId_R (r), getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r)
+                );
+                break;
+
+            }
+            case CIRCLE: {
+                CIRCULO c = (CIRCULO) disp->emDisparo->data;
+
+                fprintf (txtFile, "\tForma em disparo: c %d %.6f %.6f %.6f %s %s\n",
+                    getId_C (c), getX_C (c), getY_C (c), getR_C (c), getCorB_C (c), getCorP_C (c)
+                );
+                break;
+
+            }
+            case LINE: {
+                LINHA l = (LINHA) disp->emDisparo->data;
+
+                fprintf (txtFile, "\tForma em disparo: l %d %.6f %.6f %.6f %.6f %s\n",
+                    getId_L (l), getX1_L (l), getY1_L (l), getX2_L (l), getY2_L (l), getCor_L (l)
+                );
+                break;
+            }
+            case TEXT: {
+                TEXTO t = (TEXTO) disp->emDisparo->data;
+
+                fprintf (txtFile, "\tForma em disparo: t %d %.6f %.6f %s %s %c %s\n",
+                    getId_T (t), getX_T (t), getY_T (t), getCorb_T (t), getCorp_T (t), getA_T (t), getTxto_T (t)
+                );
+                break;
+
+            }
+            case TEXT_STYLE:
+                return;
+        }
+    }
 }
 
 void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *carregador, int *contCarregador, FILE *txtFile){
@@ -364,10 +444,10 @@ void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *c
     fprintf (txtFile, "\tQuantidade de vezes pressionado: %d", vezesPInt);
     fprintf (txtFile, "\n");
 
-    shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, vezesPInt, carregador, *contCarregador);
+    shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, vezesPInt, carregador, *contCarregador, txtFile);
 }
 
-void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, double dx, double dy, char *anota, PILHA arena, PILHA pilhaFree){
+void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, double dx, double dy, char *anota, PILHA arena, PILHA pilhaFree, FILE *txtFile){
     int disparadorIndex = getDisparadorIndexPorId (disparador, contDisparos, disparadorId);
         if (disparadorIndex == -1){
             printf ("Erro: disparador com ID %d nao encontrado.\n", disparadorId);
@@ -398,6 +478,50 @@ void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId,
     posicaoFormaArena->disparadorX = disp->x;
     posicaoFormaArena->disparadorY = disp->y;
 
+    if (txtFile != NULL){
+        switch (forma->tipoF) {
+            case RECTANGLE: {
+                RETANGULO r = (RETANGULO) forma->data;
+
+                fprintf (txtFile, "\tForma disparada: r %d %.6f %.6f %.6f %.6f %s %s\n",
+                    getId_R (r), getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorB_R (r), getCorP_R (r)
+                );
+                break;
+
+            }
+            case CIRCLE: {
+                CIRCULO c = (CIRCULO) forma->data;
+
+                fprintf (txtFile, "\tForma disparada: c %d %.6f %.6f %.6f %s %s\n",
+                    getId_C (c), getX_C (c), getY_C (c), getR_C (c), getCorB_C (c), getCorP_C (c)
+                );
+                break;
+
+            }
+            case LINE: {
+                LINHA l = (LINHA) forma->data;
+
+                fprintf (txtFile, "\tForma disparada: l %d %.6f %.6f %.6f %.6f %s\n",
+                    getId_L (l), getX1_L (l), getY1_L (l), getX2_L (l), getY2_L (l), getCor_L (l)
+                );
+                break;
+            }
+            case TEXT: {
+                TEXTO t = (TEXTO) forma->data;
+
+                fprintf (txtFile, "\tForma disparada: t %d %.6f %.6f %s %s %c %s\n",
+                    getId_T (t), getX_T (t), getY_T (t), getCorb_T (t), getCorp_T (t), getA_T (t), getTxto_T (t)
+                );
+                break;
+
+            }
+            case TEXT_STYLE:
+                return;
+        }
+
+        fprintf (txtFile, "\t ->Posição final na arena: (%.2f, %.2f)\n", posicaoFormaArena->x, posicaoFormaArena->y);
+    }
+
     disp->emDisparo = NULL;
 
     pushPilha (arena, (void *)posicaoFormaArena);
@@ -420,12 +544,12 @@ void dspExecutar (disparadorSt **disparador, int *contDisparos, PILHA arena, PIL
     double dyDouble = atof (dy);
 
     fprintf (txtFile, "[dsp]\n");
-    fprintf (txtFile, "\tDisparador ID: %d", disparadorIdInt);
+    fprintf (txtFile, "\tDisparador ID: %d\n", disparadorIdInt);
     fprintf (txtFile, "\tDX: %f\n", dxDouble);
     fprintf (txtFile, "\tDY: %f\n", dyDouble);
     fprintf (txtFile, "\tAnotação das dimensões: %s\n", anotaDimensoes);
 
-    dspOperacao (disparador, *contDisparos, disparadorIdInt, dxDouble, dyDouble, anotaDimensoes, arena, pilhaFree);
+    dspOperacao (disparador, *contDisparos, disparadorIdInt, dxDouble, dyDouble, anotaDimensoes, arena, pilhaFree, txtFile);
 }
 
 void rjdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, PILHA arena, carregadorSt *carregador, int *contCarregador, FILE *txtFile){
@@ -499,9 +623,9 @@ void rjdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree,
     fprintf (txtFile, "\n");
 
     while (!pilhaVazia (*(carr->formas))){
-        shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, 1, carregador, *contCarregador);
+        shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, 1, carregador, *contCarregador, txtFile);
 
-        dspOperacao (disparador, *contDisparos, disparadorIdInt, (vezes * incXDouble + dxDouble), (vezes * incYDouble + dyDouble), "i", arena, pilhaFree);
+        dspOperacao (disparador, *contDisparos, disparadorIdInt, (vezes * incXDouble + dxDouble), (vezes * incYDouble + dyDouble), "i", arena, pilhaFree, txtFile);
 
         vezes++;
     }
