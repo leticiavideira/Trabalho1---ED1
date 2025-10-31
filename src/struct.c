@@ -48,3 +48,10 @@ typedef struct {
     double maxX, maxY;
 } bBox;
 
+typedef struct {
+    int instrucoesExecutadas;
+    int disparos;
+    int formasEsmagadas;
+    int formasClonadas;
+    double areaEsmagadaTotal;
+} Estatisticas;
