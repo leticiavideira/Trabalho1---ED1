@@ -58,6 +58,9 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
             printf ("Erro ao alocar memoria para qry.\n");
             exit (1);
         }
+    
+    Estatisticas *stats = malloc (sizeof (Estatisticas));
+        *stats = (Estatisticas) {0, 0, 0, 0, 0.0};
 
     qry->arena = criaPilha ();
     qry->pilhaFree = criaPilha ();
@@ -118,19 +121,19 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
             }
 
         if (strcmp (cmd, "pd") == 0){
-            pdExecutar (&disparador, &contDisparos, qry->pilhaFree);
+            pdExecutar (&disparador, &contDisparos, qry->pilhaFree, stats);
         } else if (strcmp (cmd, "lc") == 0){
-            lcExecutar (&carregador, &contCarregador, chao, qry->pilhaFree, txtFile);
+            lcExecutar (&carregador, &contCarregador, chao, qry->pilhaFree, txtFile, stats);
         } else if (strcmp (cmd, "atch") == 0){
-            atchExecutar (&carregador, &contCarregador, &disparador, &contDisparos, qry->pilhaFree);
+            atchExecutar (&carregador, &contCarregador, &disparador, &contDisparos, qry->pilhaFree, stats);
         } else if (strcmp (cmd, "shft") == 0){
-            shftExecutar (&disparador, &contDisparos, carregador, &contCarregador, txtFile);
+            shftExecutar (&disparador, &contDisparos, carregador, &contCarregador, txtFile, stats);
         } else if (strcmp (cmd, "dsp") == 0){
-            dspExecutar (&disparador, &contDisparos, qry->arena, qry->pilhaFree, txtFile);
+            dspExecutar (&disparador, &contDisparos, qry->arena, qry->pilhaFree, txtFile, stats);
         } else if (strcmp (cmd, "rjd") == 0){
-            rjdExecutar (&disparador, &contDisparos, qry->pilhaFree, qry->arena, carregador, &contCarregador, txtFile);
+            rjdExecutar (&disparador, &contDisparos, qry->pilhaFree, qry->arena, carregador, &contCarregador, txtFile, stats);
         } else if (strcmp (cmd, "calc") == 0){
-            calcExecutar (qry->arena, chao, txtFile);
+            calcExecutar (qry->arena, chao, txtFile, stats);
         } else {
             printf ("Comando nao reconhecido.\n");
         }
@@ -138,7 +141,17 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
 
     resultadoQry (arqDataQry, arqDataGeo, chao, qry->arena, saidaPath);
 
+    
+    fprintf (txtFile, "\n[Resumo Final]\n");
+    fprintf (txtFile, "Pontuação final: %.2lf\n", stats->areaEsmagadaTotal);
+    fprintf (txtFile, "Total de instruções executadas: %d\n", stats->instrucoesExecutadas);
+    fprintf (txtFile, "Total de disparos: %d\n", stats->disparos);
+    fprintf (txtFile, "Total de formas esmagadas: %d\n", stats->formasEsmagadas);
+    fprintf (txtFile, "Total de formas clonadas: %d\n", stats->formasClonadas);
+    fprintf (txtFile, "\n");
+
     fclose (txtFile);
+    free (stats);
     return (QRY) qry;
 }
 

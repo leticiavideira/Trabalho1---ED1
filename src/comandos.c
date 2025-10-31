@@ -16,7 +16,7 @@
 #include "estiloTexto.h"
 
 
-void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
+void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, Estatisticas *stats){
     char *iden = strtok (NULL, " ");
     char *posX = strtok (NULL, " ");
     char *posY = strtok (NULL, " ");
@@ -61,9 +61,11 @@ void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
         .cargaDirId = -1,
         .cargaEsqId = -1
     };
+
+    stats->instrucoesExecutadas++;
 }
 
-void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILHA pilhaFree, FILE *txtFile){
+void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILHA pilhaFree, FILE *txtFile, Estatisticas *stats){
     char *iden = strtok (NULL, " ");
     char *primXFormas = strtok (NULL, " ");
 
@@ -185,9 +187,11 @@ void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILH
             }
         }
     }
+
+    stats->instrucoesExecutadas++;
 }
 
-void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt **disparador, int *contDisparos, PILHA pilhaFree){
+void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, Estatisticas *stats){
     char *disparadorId = strtok (NULL, " ");
     char *carregadorDirId = strtok (NULL, " ");
     char *carregadorEsqId = strtok (NULL, " ");
@@ -327,6 +331,8 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
         } else {
             printf ("Erro: disparador com id %d nao encontrado.\n", disparadorIdInt);
         }
+
+    stats->instrucoesExecutadas++;
 }
 
 void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, char *direcao, int vezes, carregadorSt *carregador, int contCarregador, FILE *txtFile){
@@ -430,7 +436,7 @@ void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId
     }
 }
 
-void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *carregador, int *contCarregador, FILE *txtFile){
+void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *carregador, int *contCarregador, FILE *txtFile, Estatisticas *stats){
     char *disparadorId = strtok (NULL, " ");
     char *botaoDirEsq = strtok (NULL, " ");
     char *vezesP = strtok (NULL, " ");
@@ -445,9 +451,11 @@ void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *c
     fprintf (txtFile, "\n");
 
     shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, vezesPInt, carregador, *contCarregador, txtFile);
+
+    stats->instrucoesExecutadas++;
 }
 
-void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, double dx, double dy, char *anota, PILHA arena, PILHA pilhaFree, FILE *txtFile){
+void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, double dx, double dy, char *anota, PILHA arena, PILHA pilhaFree, FILE *txtFile, Estatisticas *stats){
     int disparadorIndex = getDisparadorIndexPorId (disparador, contDisparos, disparadorId);
         if (disparadorIndex == -1){
             printf ("Erro: disparador com ID %d nao encontrado.\n", disparadorId);
@@ -531,9 +539,11 @@ void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId,
             formaItem->tp = POSICAOFORMAF;
             pushPilha (pilhaFree, formaItem);
         }
+
+    stats->disparos++;
 }
  
-void dspExecutar (disparadorSt **disparador, int *contDisparos, PILHA arena, PILHA pilhaFree, FILE *txtFile){
+void dspExecutar (disparadorSt **disparador, int *contDisparos, PILHA arena, PILHA pilhaFree, FILE *txtFile, Estatisticas *stats){
     char *disparadorId = strtok (NULL, " ");
     char *dx = strtok (NULL, " ");
     char *dy = strtok (NULL, " ");
@@ -549,10 +559,12 @@ void dspExecutar (disparadorSt **disparador, int *contDisparos, PILHA arena, PIL
     fprintf (txtFile, "\tDY: %f\n", dyDouble);
     fprintf (txtFile, "\tAnotação das dimensões: %s\n", anotaDimensoes);
 
-    dspOperacao (disparador, *contDisparos, disparadorIdInt, dxDouble, dyDouble, anotaDimensoes, arena, pilhaFree, txtFile);
+    dspOperacao (disparador, *contDisparos, disparadorIdInt, dxDouble, dyDouble, anotaDimensoes, arena, pilhaFree, txtFile, stats);
+
+    stats->instrucoesExecutadas++;
 }
 
-void rjdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, PILHA arena, carregadorSt *carregador, int *contCarregador, FILE *txtFile){
+void rjdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, PILHA arena, carregadorSt *carregador, int *contCarregador, FILE *txtFile, Estatisticas *stats){
     char *disparadorId = strtok (NULL, " ");
     char *botaoDirEsq = strtok (NULL, " ");
     char *dx = strtok (NULL, " ");
@@ -625,13 +637,17 @@ void rjdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree,
     while (!pilhaVazia (*(carr->formas))){
         shftOperacao (disparador, *contDisparos, disparadorIdInt, botaoDirEsq, 1, carregador, *contCarregador, txtFile);
 
-        dspOperacao (disparador, *contDisparos, disparadorIdInt, (vezes * incXDouble + dxDouble), (vezes * incYDouble + dyDouble), "i", arena, pilhaFree, txtFile);
+        dspOperacao (disparador, *contDisparos, disparadorIdInt, (vezes * incXDouble + dxDouble), (vezes * incYDouble + dyDouble), "i", arena, pilhaFree, txtFile, stats);
 
         vezes++;
     }
+
+    stats->instrucoesExecutadas++;
 }
 
-void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
+void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile, Estatisticas *stats){
+    fprintf (txtFile, "[calc]\n");
+
     PILHA temp = criaPilha ();
 
     while (!pilhaVazia (arena)){
@@ -639,6 +655,9 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
     }
 
     double areaTotalEsmagada = 0.0;
+    double areaRound = 0.0;
+    int formasEsmagadas = 0;
+    int formasClonadas = 0;
 
     while (!pilhaVazia (temp)){
         PosicaoFormaASt *I = (PosicaoFormaASt *) popPilha (temp);
@@ -656,8 +675,11 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
         if (sobreposicao){
             double areaI = getAreaForma (I->forma->tipoF, I->forma->data);
             double areaJ = getAreaForma (J->forma->tipoF, J->forma->data);
+            double areaEsmagada = (areaI < areaJ) ? areaI : areaJ;
 
-            areaTotalEsmagada += (areaI < areaJ) ? areaI : areaJ;
+            areaRound += areaEsmagada;
+            areaTotalEsmagada += areaEsmagada;
+            formasEsmagadas++;
 
             if (areaI < areaJ){
                 //I destroi, J volta pro chao
@@ -708,6 +730,9 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
                 if (IcPos != NULL){
                     pushFila (getFChao (chao), IcPos);
                 }
+
+                formasClonadas++;
+
             } else {
                 FormaSt *Ipos = clonarComPosicao (I->forma, I->x, I->y, chao);
                 FormaSt *Jpos = clonarComPosicao (J->forma, J->x, J->y, chao);
@@ -734,9 +759,18 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile){
     }
 
     //Saida com o resultado calculado
-    fprintf (txtFile, "[calc]\n");
-    fprintf (txtFile, "\tResultado final: %.2lf\n", areaTotalEsmagada);
+    fprintf (txtFile, "\tÁrea total esmagada no round: %.2lf\n", areaRound);
+    stats->areaEsmagadaTotal += areaRound;
+
+    stats->formasClonadas += formasClonadas;
+    stats->formasEsmagadas += formasEsmagadas;
+
+    fprintf (txtFile, "\tÁrea total esmagada acumulada: %.2lf\n", areaTotalEsmagada);
+    fprintf (txtFile, "\tFormas esmagadas neste round: %d\n", formasEsmagadas);
+    fprintf (txtFile, "\tFormas clonadas neste round: %d\n", formasClonadas);
     fprintf (txtFile, "\n");
+
+    stats->instrucoesExecutadas++;
 
     killPilha (temp);
 }
