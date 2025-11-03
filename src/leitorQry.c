@@ -217,14 +217,14 @@ void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, 
         if (forma != NULL){
             if (forma->tipoF == CIRCLE){
                 CIRCULO circulo = (CIRCULO) forma->data;
-                fprintf (arq, "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s'/>\n", 
+                fprintf (arq, "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s' fill-opacity='0.6' stroke-opacity='0.9'/>\n", 
                     getX_C (circulo), getY_C (circulo), getR_C (circulo), getCorP_C (circulo), getCorB_C (circulo)
                 );
 
             } else if (forma->tipoF == RECTANGLE){
                 RETANGULO retangulo = (RETANGULO) forma->data;
                 fprintf (arq,  "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' "
-                    "stroke='%s'/>\n",
+                    "stroke='%s' fill-opacity='0.6' stroke-opacity='0.9'/>\n",
                     getX_R (retangulo), getY_R (retangulo), getW_R (retangulo), getH_R (retangulo), getCorP_R (retangulo), getCorB_R (retangulo)
                 );
             
@@ -241,10 +241,10 @@ void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, 
                     if (ancora == 'm' || ancora == 'M'){
                         ancoraT = "middle";
 
-                    } else if (ancora == 'e' || ancora == 'E'){
+                    } else if (ancora == 'f' || ancora == 'F'){
                         ancoraT = "end";
 
-                    } else if (ancora == 's' || ancora == 'S'){
+                    } else if (ancora == 'i' || ancora == 'I'){
                         ancoraT = "start";
                     }
                 fprintf (arq,  "<text x='%.2f' y='%.2f' fill='%s' stroke='%s' "
@@ -281,7 +281,7 @@ void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, 
             double dy = f->y - f->disparadorY;
             double meioHx = f->disparadorX + dx * 0.5;
             double meioHy = f->disparadorY;
-            double meioVx = f->x;
+            double meioVx = f->disparadorX + dx;
             double meioVy = f->disparadorY + dy * 0.5;
 
             fprintf (arq,  "<line x1='%.2f' y1='%.2f' x2='%.2f' y2='%.2f' stroke='purple' "

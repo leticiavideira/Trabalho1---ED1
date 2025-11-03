@@ -288,13 +288,13 @@ void criarFilaSVG (ChaoSt *chao, char *saidaPath, DadosArquivo arqData, char *su
                     if (forma->tipoF == CIRCLE){
                         CIRCULO c = (CIRCULO) forma->data;
 
-                        fprintf (arq, "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s'/>\n",
+                        fprintf (arq, "<circle cx='%.2f' cy='%.2f' r='%.2f' fill='%s' stroke='%s' fill-opacity='0.6' stroke-opacity='0.9'/>\n",
                             getX_C (c), getY_C (c), getR_C (c), getCorP_C (c), getCorB_C (c));
 
                     } else if (forma->tipoF == RECTANGLE){
                         RETANGULO r = (RETANGULO) forma->data;
 
-                        fprintf (arq, "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' stroke='%s'/>\n",
+                        fprintf (arq, "<rect x='%.2f' y='%.2f' width='%.2f' height='%.2f' fill='%s' stroke='%s' fill-opacity='0.6' stroke-opacity='0.9'/>\n",
                             getX_R (r), getY_R (r), getW_R (r), getH_R (r), getCorP_R (r), getCorB_R (r));
 
                     } else if (forma->tipoF == LINE){
