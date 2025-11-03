@@ -335,6 +335,7 @@ void atchExecutar (carregadorSt **carregador, int *contCarregador, disparadorSt 
     stats->instrucoesExecutadas++;
 }
 
+//Função auxiliar para shftExecutar
 void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, char *direcao, int vezes, carregadorSt *carregador, int contCarregador, FILE *txtFile){
     int disparadorIndex = getDisparadorIndexPorId (disparador, contDisparos, disparadorId);
         if (disparadorIndex == -1){
@@ -455,6 +456,7 @@ void shftExecutar (disparadorSt **disparador, int *contDisparos, carregadorSt *c
     stats->instrucoesExecutadas++;
 }
 
+//Função auxiliar para executar um disparo (usada em dspExecutar e rjdExecutar)
 void dspOperacao (disparadorSt **disparador, int contDisparos, int disparadorId, double dx, double dy, char *anota, PILHA arena, PILHA pilhaFree, FILE *txtFile, Estatisticas *stats){
     int disparadorIndex = getDisparadorIndexPorId (disparador, contDisparos, disparadorId);
         if (disparadorIndex == -1){
@@ -675,18 +677,32 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile, Estatisticas *stats){
         if (sobreposicao){
             double areaI = getAreaForma (I->forma->tipoF, I->forma->data);
             double areaJ = getAreaForma (J->forma->tipoF, J->forma->data);
-            double areaEsmagada = (areaI < areaJ) ? areaI : areaJ;
-
-            areaRound += areaEsmagada;
-            areaTotalEsmagada += areaEsmagada;
-            formasEsmagadas++;
+            double areaEsmagada;
 
             if (areaI < areaJ){
                 //I destroi, J volta pro chao
+                areaEsmagada = areaI;
+
                 FormaSt *Jpos = clonarComPosicao (J->forma, J->x, J->y, chao);
                 if (Jpos != NULL){
                     pushFila (getFChao (chao), Jpos);
                 }
+
+                areaRound += areaEsmagada;
+                areaTotalEsmagada += areaEsmagada;
+                formasEsmagadas++;
+
+
+                TEXTO txtFEsmagada = criaTexto (-18, I->x, I->y,  "#ff0000", "#ff0000", 'm', "*");
+
+                FormaSt *formatxt = malloc (sizeof (FormaSt));
+                    if (formatxt != NULL){
+                        formatxt->tipoF = TEXT;
+                        formatxt->data = txtFEsmagada;
+                        pushFila (getFChao (chao), formatxt);
+                    }
+
+
             } else if (areaI >= areaJ){
                 //I muda cor de borda de J para preencher cor de I
                 char *preencheCorI = NULL;

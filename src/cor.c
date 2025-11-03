@@ -2,7 +2,7 @@
 
 #include "cor.h"
 
-
+// Função auxiliar interna: converte um único dígito hexadecimal em seu valor, retorna -1 em caso de erro
 int valorHex (char c){
     if (c >= '0' && c <= '9')
         return c - '0';
@@ -16,6 +16,8 @@ int valorHex (char c){
     return -1;
 }
 
+
+// Auxiliar interno: analisa #RRGGBB em r,g,b (0-255). Retorna 0 em caso de sucesso.
 int analisarCorHex (char *s, int *r, int *g, int *b){
     if (s == NULL || s[0] != '#')
         return -1;
@@ -37,6 +39,8 @@ int analisarCorHex (char *s, int *r, int *g, int *b){
     return 0;
 }
 
+
+// Auxiliar interno: mapeia um conjunto limitado de cores nomeadas para RGB
 int corRgbNome (char *nome, int *r, int *g, int *b){
     if (nome == NULL)
         return -1;

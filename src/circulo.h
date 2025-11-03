@@ -25,12 +25,12 @@ typedef void* CIRCULO;
 /**
  * @brief Cria e inicializa um novo círculo.
  * 
- * @param id Identificador do círculo.
+ * @param i Identificador do círculo.
  * @param x Coordenada X do centro do círculo.
  * @param y Coordenada Y do centro do círculo.
  * @param raio Raio do círculo.
- * @param corP Cor de preenchimento do círculo (string).
- * @param corB Cor da borda do círculo (string).
+ * @param corp Cor de preenchimento do círculo (string).
+ * @param corb Cor da borda do círculo (string).
  * @return CIRCULO Retorna um ponteiro para o novo círculo criado.
  */
 CIRCULO criaCirculo (int i, double x, double y, double r, char* corb, char* corp);
@@ -105,7 +105,7 @@ char* getCorP_C (CIRCULO c);
  * @brief Define o ID do círculo.
  * 
  * @param c Ponteiro para o círculo.
- * @param id Novo ID a ser definido.
+ * @param i Novo ID a ser definido.
  */
 void setId_C (CIRCULO c, int i);
 
@@ -132,7 +132,7 @@ void setY_C (CIRCULO c, double y);
  * @brief Define o raio do círculo.
  * 
  * @param c Ponteiro para o círculo.
- * @param raio Novo valor de raio.
+ * @param r Novo valor de raio.
  */
 void setR_C (CIRCULO c, double r);
 
@@ -141,7 +141,7 @@ void setR_C (CIRCULO c, double r);
  * @brief Define a cor da borda do círculo.
  * 
  * @param c Ponteiro para o círculo.
- * @param corB Nova cor da borda (string).
+ * @param cb Nova cor da borda (string).
  */
 void setCorB_C (CIRCULO c, char* cb);
 
@@ -150,7 +150,7 @@ void setCorB_C (CIRCULO c, char* cb);
  * @brief Define a cor de preenchimento do círculo.
  * 
  * @param c Ponteiro para o círculo.
- * @param corP Nova cor de preenchimento (string).
+ * @param cp Nova cor de preenchimento (string).
  */
 void setCorP_C (CIRCULO c, char* cp);
 

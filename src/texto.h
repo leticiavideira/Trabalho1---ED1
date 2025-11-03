@@ -9,7 +9,7 @@
  */
 
 
- /**
+/**
  * @typedef TEXTO
  * Tipo opaco que representa um objeto texto.
  */

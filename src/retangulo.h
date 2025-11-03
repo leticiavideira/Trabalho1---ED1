@@ -27,13 +27,13 @@ typedef void* RETANGULO;
 /**
  * @brief Cria um novo retângulo com os atributos especificados.
  *
- * @param id Identificador único do retângulo.
+ * @param i Identificador único do retângulo.
  * @param x Coordenada X da posição do retângulo.
  * @param y Coordenada Y da posição do retângulo.
- * @param altura Altura do retângulo.
- * @param largura Largura do retângulo.
- * @param corB Cor da borda (string).
- * @param corP Cor de preenchimento (string).
+ * @param h Altura do retângulo.
+ * @param w Largura do retângulo.
+ * @param corb Cor da borda (string).
+ * @param corp Cor de preenchimento (string).
  * @return Um ponteiro para o retângulo criado.
  */
 RETANGULO criaRetangulo (int i, double x, double y, double w, double h, char* corb, char* corp);
@@ -120,7 +120,7 @@ char* getCorP_R (RETANGULO r);
  * @brief Define um novo ID para o retângulo.
  *
  * @param r Retângulo.
- * @param id Novo ID.
+ * @param i Novo ID.
  */
 void setId_R (RETANGULO r, int i);
 
@@ -146,7 +146,7 @@ void setY_R (RETANGULO r, double y);
  * @brief Define uma nova largura para o retângulo.
  *
  * @param r Retângulo.
- * @param y Nova largura.
+ * @param w Nova largura.
  */
 void setW_R (RETANGULO r, double w);
 
@@ -155,7 +155,7 @@ void setW_R (RETANGULO r, double w);
  * @brief Define uma nova altura para o retângulo.
  *
  * @param r Retângulo.
- * @param y Nova altura.
+ * @param h Nova altura.
  */
 void setH_R (RETANGULO r, double h);
 
@@ -164,7 +164,7 @@ void setH_R (RETANGULO r, double h);
  * @brief Define uma nova cor de borda para o retângulo.
  *
  * @param r Retângulo.
- * @param corB Nova cor da borda (string).
+ * @param cb Nova cor da borda (string).
  */
 void setCorB_R (RETANGULO r, char* cb);
 
@@ -173,7 +173,7 @@ void setCorB_R (RETANGULO r, char* cb);
  * @brief Define uma nova cor de preenchimento para o retângulo.
  *
  * @param r Retângulo.
- * @param corP Nova cor de preenchimento (string).
+ * @param cp Nova cor de preenchimento (string).
  */
 void setCorP_R (RETANGULO r, char* cp);
 

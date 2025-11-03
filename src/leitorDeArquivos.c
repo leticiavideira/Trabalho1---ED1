@@ -22,6 +22,7 @@ struct filaEPilhaLinhas{
 
 static struct filaEPilhaLinhas *leArqFilaPilha(char *arqPath);
 
+//Funções privadasc definidas no meio do arquivo
 char *duplicaString (char *st);
 static char *leLinha (FILE *arquivo, char *buffer, size_t tam);
 
@@ -96,8 +97,13 @@ static struct filaEPilhaLinhas *leArqFilaPilha (char *arqPath){
 
 
 
+/**
+**************************
+* Funções Privadas
+**************************
+*/
 
-
+//Lê uma linha do arquivo usando fgets
 static char *leLinha (FILE *arquivo, char *buffer, size_t tam){
     if ((fgets(buffer, tam, arquivo) != NULL)){
         size_t t = strlen(buffer);
@@ -110,6 +116,11 @@ static char *leLinha (FILE *arquivo, char *buffer, size_t tam){
     return NULL;
 }
 
+/**
+ * Duplica uma string usando malloc
+ * @param st string para duplicar
+ * @return Nova string ou NULL em caso de erro
+ */
 char *duplicaString (char *st){
     if (st == NULL)
         return NULL;
@@ -123,7 +134,11 @@ char *duplicaString (char *st){
     return (duplica);
 }
 
-
+/**
+**************************
+* Fim das Funções Privadas
+**************************
+*/
 
 
 

@@ -24,6 +24,8 @@ typedef struct{
     PILHA pilhaFree;
 } QrySt;
 
+
+//Função privada
 void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, PILHA arena, char *saidaPath);
 
 void killQry (QRY qry){
@@ -120,20 +122,28 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
                 continue;
             }
 
+        //Funções declaradas em comandos.h
         if (strcmp (cmd, "pd") == 0){
             pdExecutar (&disparador, &contDisparos, qry->pilhaFree, stats);
+
         } else if (strcmp (cmd, "lc") == 0){
             lcExecutar (&carregador, &contCarregador, chao, qry->pilhaFree, txtFile, stats);
+        
         } else if (strcmp (cmd, "atch") == 0){
             atchExecutar (&carregador, &contCarregador, &disparador, &contDisparos, qry->pilhaFree, stats);
+        
         } else if (strcmp (cmd, "shft") == 0){
             shftExecutar (&disparador, &contDisparos, carregador, &contCarregador, txtFile, stats);
+        
         } else if (strcmp (cmd, "dsp") == 0){
             dspExecutar (&disparador, &contDisparos, qry->arena, qry->pilhaFree, txtFile, stats);
+        
         } else if (strcmp (cmd, "rjd") == 0){
             rjdExecutar (&disparador, &contDisparos, qry->pilhaFree, qry->arena, carregador, &contCarregador, txtFile, stats);
+        
         } else if (strcmp (cmd, "calc") == 0){
             calcExecutar (qry->arena, chao, txtFile, stats);
+        
         } else {
             printf ("Comando nao reconhecido.\n");
         }
@@ -155,6 +165,16 @@ QRY exeQryCmd (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, char
     return (QRY) qry;
 }
 
+/**
+ * @brief Gera um arquivo `.svg` final com as representações gráficas resultantes.
+ * 
+ * @param arqDataQry Estrutura contendo informações e filas de comandos lidos do arquivo `.qry`.
+ * @param arqDataGeo Estrutura contendo informações e objetos geométricos lidos do arquivo `.geo`.
+ * @param chao Estrutura representando o "chão" onde os elementos são posicionados e manipulados.
+ * @param arena Estrutura representando a arena onde os elementos são posicionados e manipulados.
+ * @param saidaPath Caminho de diretório onde os arquivos de saída (`.txt` e `.svg`) serão gravados.
+ *
+ */
 void resultadoQry (DadosArquivo arqDataQry, DadosArquivo arqDataGeo, CHAO chao, PILHA arena, char *saidaPath){
     char *nomeSrcGeo = getNomeArq (arqDataGeo);
     char *nomeSrcQry = getNomeArq (arqDataQry);

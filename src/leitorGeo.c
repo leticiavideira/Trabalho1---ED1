@@ -4,6 +4,7 @@
 
 #include "leitorGeo.h"
 #include "leitorDeArquivos.h"
+#include "struct.c"
 #include "fila.h"
 #include "pilha.h"
 
@@ -14,7 +15,6 @@
 #include "texto.h"
 #include "estiloTexto.h"
 
-#include "struct.c"
 
 typedef struct{
     FILA filaFormas;
@@ -22,6 +22,8 @@ typedef struct{
     FILA filaSVG;
 } ChaoSt;
 
+
+// Funções privadas implementadas no final do arquivo
 void exeCmd_Retangulo (ChaoSt *chao);
 void exeCmd_Circulo (ChaoSt *chao);
 void exeCmd_Linha (ChaoSt *chao);
@@ -115,6 +117,20 @@ void killGeo (CHAO chao){
 }
 
 
+/**
+**************************
+* Funções Privadas
+**************************
+*/
+
+
+/**
+ * Cria um retângulo com identificador i: (x,y)
+ * é a âncora do retângulo, w é a largura do
+ * retângulo e h, a altura. corb é a cor da
+ * borda e corp é a cor do preenchimento
+ * 
+ */
 void exeCmd_Retangulo (ChaoSt *chao){
     char *id = strtok (NULL, " ");
     char *x = strtok (NULL, " ");
@@ -140,6 +156,12 @@ void exeCmd_Retangulo (ChaoSt *chao){
     pushFila (chao->filaSVG, forma);
 }
 
+/**
+ * Cria um círculo com identificador i: (x,y) é
+ * o centro do círculo; r, seu raio, corb é a cor
+ * da borda e corp é a cor do preenchimento
+ * 
+ */
 void exeCmd_Circulo (ChaoSt *chao){
     char *id = strtok (NULL, " ");
     char *x = strtok (NULL, " ");
@@ -164,6 +186,13 @@ void exeCmd_Circulo (ChaoSt *chao){
     pushFila (chao->filaSVG, forma);
 }
 
+
+/**
+ * Cria uma linha com identificador i, com
+ * extremidades nos pontos (x1,y1) e (x2,y2),
+ * com a cor especificada.
+ * 
+ */
 void exeCmd_Linha (ChaoSt *chao){
     char *id = strtok (NULL, " ");
     char *x1 = strtok (NULL, " ");
@@ -187,6 +216,20 @@ void exeCmd_Linha (ChaoSt *chao){
     pushPilha (chao->pilhaFreeMemoria, forma);
     pushFila (chao->filaSVG, forma);
 }
+
+
+/**
+ * Cria o texto txto com identificador i, nas
+ * coordenadas (x,y) e com a cores
+ * indicadas. corb é a cor da borda e corp é a
+ * cor do preenchimento. O parâmetro a
+ * determina a posição da âncora do texto: i,
+ * no início; m, no meio, f, no fim.
+ * O texto txto é o último parâmetro do
+ * comando. Pode incluir espaços em branco e
+ * se estende até o final da linha.
+ * 
+ */
 void exeCmd_Texto (ChaoSt *chao){
     char *id = strtok (NULL, " ");
     char *x = strtok (NULL, " ");
@@ -211,6 +254,13 @@ void exeCmd_Texto (ChaoSt *chao){
     pushPilha (chao->pilhaFreeMemoria, forma);
     pushFila (chao->filaSVG, forma);
 }
+
+/**
+ * Muda o estilo dos textos (comando t) subsequentes.
+ * font family: sans (sans-serif), serif, cursive;
+ * font weight ( n: normal, b: bold, b+: bolder, l: | lighter)
+ * 
+ */
 void exeCmd_EstiloTexto (ChaoSt *chao){
     char *fF = strtok (NULL, " ");
     char *fW = strtok (NULL, " ");
