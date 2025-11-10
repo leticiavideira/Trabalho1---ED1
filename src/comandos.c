@@ -35,10 +35,12 @@ void pdExecutar (disparadorSt **disparador, int *contDisparos, PILHA pilhaFree, 
     for (int i = 0 ; i < contTamPilha ; i++){
         ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
 
-        if (itemExiste != NULL && itemExiste->tp == ARRAYDISPARADORF){
-            itemExiste->p = *disparador;
-            disparadorMarcado = 1;
-            break;
+        if (itemExiste != NULL) {
+            if ((void*)itemExiste >= (void*)0x1000 && itemExiste->tp == ARRAYDISPARADORF) {
+                itemExiste->p = *disparador;
+                disparadorMarcado = 1;
+                break;
+            }
         }
     }
 
@@ -97,10 +99,12 @@ void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILH
             int contTamPilha = tamanhoPilha (pilhaFree);
             for (int i = 0 ; i < contTamPilha ; i++){
                 ItemFree *itemExiste = (ItemFree *) acharElemPilha (pilhaFree, i);
-                    if (itemExiste != NULL  && itemExiste->tp == ARRAYCARREGADORF){
-                        itemExiste->p = *carregador;
-                        carregadorMarcado = 1;
-                        break;
+                    if (itemExiste != NULL) {
+                        if ((void*)itemExiste >= (void*)0x1000 && itemExiste->tp == ARRAYCARREGADORF) {
+                            itemExiste->p = *carregador;
+                            carregadorMarcado = 1;
+                            break;
+                        }
                     }
             }
 
@@ -127,7 +131,7 @@ void lcExecutar (carregadorSt **carregador, int *contCarregador, CHAO chao, PILH
             exit (1);
         }
 
-        ItemFree *itemPilha = malloc (sizeof (itemPilha));
+        ItemFree *itemPilha = malloc (sizeof (ItemFree));
             if (itemPilha != NULL){
                 itemPilha->p = (*carregador)[carregadorJaExiste].formas;
                 itemPilha->tp = PILHAF;
@@ -394,7 +398,7 @@ void shftOperacao (disparadorSt **disparador, int contDisparos, int disparadorId
         }
     }
 
-    if (txtFile != NULL){
+    if (txtFile != NULL && disp->emDisparo != NULL){
         switch (disp->emDisparo->tipoF) {
             case RECTANGLE: {
                 RETANGULO r = (RETANGULO) disp->emDisparo->data;
@@ -790,12 +794,3 @@ void calcExecutar (PILHA arena, CHAO chao, FILE *txtFile, Estatisticas *stats){
 
     killPilha (temp);
 }
-
-
-
-
-
-
-
-
-
